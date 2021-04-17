@@ -1,9 +1,48 @@
 package rechnen;
 
 public class Geld {
-	// geld hat einen Betrag (double) und eine Währung (String)
-	// Geld soll mit anderem Geld verrechnbar sein wenn die Währung passt
-	// 2 Methoden: Geld add(Geld geld) und Geld substract(Geld geld)
-	// es gibt kein negatives Geld -> exception (IllegalArgumentException)
-	// beim Versuch mit anderer Währung zun rechnen ebenso
+	private final String waehrung;
+	private final double betrag;
+
+	public Geld(double betrag, String waehrung) {
+		super();
+		this.waehrung = waehrung;
+		this.betrag = betrag;
+	}
+
+	public Geld(double betrag) {
+		this(betrag, "EUR");
+	}
+
+	public Geld add(Geld geld) {
+		validateCurrency(geld);
+		final double betragsSumme = betrag + geld.betrag;
+		return new Geld(betragsSumme, waehrung);
+	}
+
+	public Geld substract(Geld geld) {
+		validateCurrency(geld);
+		validateAmount(geld);
+		final double result = betrag - geld.betrag;
+		return new Geld(result, waehrung);
+	}
+
+	@Override
+	public String toString() {
+		return "Geld [waehrung=" + waehrung + ", betrag=" + betrag + "]";
+	}
+
+	private void validateAmount(Geld geld) {
+		if (betrag - geld.betrag < 0.0) {
+			throw new IllegalArgumentException("Negatives Geld gibt es nicht.");
+		}
+	}
+
+	private void validateCurrency(Geld geld) {
+		if (!this.waehrung.equals(geld.waehrung)) {
+			throw new IllegalArgumentException("Unterschiedliche Währungen kann ich nicht verrechnen");
+		}
+
+	}
+
 }
