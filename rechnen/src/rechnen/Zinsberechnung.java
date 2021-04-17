@@ -1,17 +1,18 @@
 package rechnen;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 
 public class Zinsberechnung {
 	private final LocalDate zinsbeginn;
 	private final Geld betrag;
-	private double zinssatz;
+	private final double zinssatz;
+	private final Zinsmethode zinsmethode;
 
-	public Zinsberechnung(LocalDate zinsbeginn, Geld betrag, double zinssatz) {
+	public Zinsberechnung(LocalDate zinsbeginn, Geld betrag, double zinssatz, Zinsmethode zinsmethode) {
 		this.zinsbeginn = zinsbeginn;
 		this.betrag = betrag;
 		this.zinssatz = zinssatz;
+		this.zinsmethode = zinsmethode;
 	}
 
 	public Geld calculateUpToToday() {
@@ -20,8 +21,7 @@ public class Zinsberechnung {
 
 	public Geld calculateUpToDate(LocalDate zinsende) {
 		validatePeriod(zinsende);
-		long days = zinsbeginn.until(zinsende, ChronoUnit.DAYS);
-		return betrag.multiply(zinssatz / 100 * days / 360);
+		return zinsmethode.execute(betrag, zinssatz, zinsbeginn, zinsende);
 	}
 
 	private void validatePeriod(LocalDate zinsende) {
