@@ -1,5 +1,7 @@
 package rechnen;
 
+import java.text.DecimalFormat;
+
 public class Geld {
 	private final String waehrung;
 	private final double betrag;
@@ -27,9 +29,14 @@ public class Geld {
 		return new Geld(result, waehrung);
 	}
 
+	public Geld multiply(double faktor) {
+		return new Geld(this.betrag * faktor, waehrung);
+	}
+
 	@Override
 	public String toString() {
-		return "Geld [waehrung=" + waehrung + ", betrag=" + betrag + "]";
+		return "Geld [waehrung=" + waehrung + ", betrag=" //
+				+ new DecimalFormat("#.##").format(betrag) + "]";
 	}
 
 	private void validateAmount(Geld geld) {
