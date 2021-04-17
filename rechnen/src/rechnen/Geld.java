@@ -1,6 +1,7 @@
 package rechnen;
 
 import java.text.DecimalFormat;
+import java.util.Objects;
 
 public class Geld {
 	private final Currency waehrung;
@@ -31,6 +32,23 @@ public class Geld {
 
 	public Geld multiply(double faktor) {
 		return new Geld(this.betrag * faktor, waehrung);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(betrag, waehrung);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Geld other = (Geld) obj;
+		return Double.doubleToLongBits(betrag) == Double.doubleToLongBits(other.betrag) && waehrung == other.waehrung;
 	}
 
 	@Override
