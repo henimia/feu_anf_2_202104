@@ -6,7 +6,7 @@ public class ZinsRechner {
 
 	public static void main(String[] args) {
 		LocalDate zinsbeginn = LocalDate.of(2021, 4, 1);
-		Geld betrag = new Geld(10_000.00, "EUR");
+		Geld betrag = new Geld(10_000.00, Currency.EUR);
 		double zinssatz = 4.12d;
 		Zinsberechnung zinsen = new Zinsberechnung(zinsbeginn, betrag, zinssatz);
 

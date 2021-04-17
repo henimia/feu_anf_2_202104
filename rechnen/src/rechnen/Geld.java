@@ -3,17 +3,17 @@ package rechnen;
 import java.text.DecimalFormat;
 
 public class Geld {
-	private final String waehrung;
+	private final Currency waehrung;
 	private final double betrag;
 
-	public Geld(double betrag, String waehrung) {
+	public Geld(double betrag, Currency waehrung) {
 		super();
 		this.waehrung = waehrung;
 		this.betrag = betrag;
 	}
 
 	public Geld(double betrag) {
-		this(betrag, "EUR");
+		this(betrag, Currency.valueOf("EUR"));
 	}
 
 	public Geld add(Geld geld) {
